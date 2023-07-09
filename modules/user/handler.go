@@ -109,6 +109,7 @@ func (h handler) GetUser(c *gin.Context) {
 			Message: "UNAUTHORIZED",
 			Data:    err.Error(),
 		})
+		return
 	}
 	c.JSON(http.StatusOK, Response{
 		Code:    http.StatusOK,
