@@ -1,0 +1,12 @@
+data:
+  movies: "https://seleksi-sea-2023.vercel.app/api/movies"
+
+jwt:
+  secretKey: "99bb341e4f57951a2de07323edf24b2d"
+  expiresIn: "1h0m0s"
+
+cors:
+  allowedOrigins: 
+    - "http://localhost:3000"
+    - "http://localhost:4000"
+  allowedMethods: [GET, POST, PATCH, DELETE]
