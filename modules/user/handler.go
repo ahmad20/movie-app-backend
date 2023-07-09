@@ -439,6 +439,17 @@ func (h handler) CancelTicket(c *gin.Context) {
 			}
 		}
 	}
+	costs := ticket.Cost
+	if err := h.userUseCase.TopUp(&user, costs); err != nil {
+		log.Println("Handler.BuyTicket.08", err)
+
+		c.JSON(http.StatusNotFound, Response{
+			Code:    http.StatusNotFound,
+			Message: "NOT_ENOUGH_BALANCE",
+			Data:    err,
+		})
+		return
+	}
 	if err := h.userUseCase.CancelTicket(user, ticket); err != nil {
 		log.Println("Handler.CancelTicket.03", err.Error())
 
