@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"movie-app-go/configs"
@@ -11,12 +12,20 @@ import (
 	"movie-app-go/modules/user"
 	"movie-app-go/repositories"
 	"net/http"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	// Set the location globally
+	location, err := time.LoadLocation("Asia/Jakarta")
+	if err != nil {
+		fmt.Println("Failed to load time zone:", err)
+		return
+	}
+	time.Local = location
 	var (
 		movies  []entities.Movie
 		users   []entities.User
@@ -61,6 +70,7 @@ func main() {
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = config.Cors.AllowedOrigins
 	corsConfig.AllowMethods = config.Cors.AllowedMethods
+	corsConfig.AllowHeaders = config.Cors.AllowedHeaders
 	router.Use(cors.New(corsConfig))
 
 	authService := auth.NewService(config.JWT.SecretKey, config.JWT.ExpiresIn)

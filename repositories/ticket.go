@@ -3,6 +3,7 @@ package repositories
 import (
 	"errors"
 	"movie-app-go/entities"
+	"time"
 )
 
 type TicketRepository struct {
@@ -43,6 +44,7 @@ func (repo *TicketRepository) Read(id string) (entities.Ticket, error) {
 func (repo *TicketRepository) Update(ticket entities.Ticket) error {
 	for i, existingTicket := range repo.data {
 		if existingTicket.ID == ticket.ID {
+			ticket.Updated_At = time.Now()
 			repo.data[i] = ticket
 		}
 	}

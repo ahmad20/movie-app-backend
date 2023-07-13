@@ -91,7 +91,7 @@ func (h handler) Register(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, Response{
+	c.JSON(http.StatusCreated, Response{
 		Code:    http.StatusCreated,
 		Message: "CREATED_USER",
 		Data:    UUID.String(),
@@ -165,7 +165,7 @@ func (h handler) Login(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, Response{
-		Code:    http.StatusCreated,
+		Code:    http.StatusOK,
 		Message: "CREATED_USER",
 		Data:    token,
 	})
@@ -290,11 +290,13 @@ func (h handler) BuyTicket(c *gin.Context) {
 	}
 
 	newTicket := entities.Ticket{
-		ID:      UUID.String(),
-		MovieID: movie.ID,
-		UserID:  user.ID,
-		Seats:   seats,
-		Cost:    costs,
+		ID:         UUID.String(),
+		Movie:      movie,
+		UserID:     user.ID,
+		Seats:      seats,
+		Cost:       costs,
+		Created_At: time.Now(),
+		Updated_At: time.Now(),
 	}
 	if err := h.userUseCase.BuyTicket(user, newTicket); err != nil {
 		log.Println("Handler.BuyTicket.10", err.Error())
@@ -431,7 +433,7 @@ func (h handler) CancelTicket(c *gin.Context) {
 		return
 	}
 	seats := ticket.Seats
-	movie, _ := h.userUseCase.GetMovie(ticket.MovieID)
+	movie, _ := h.userUseCase.GetMovie(ticket.Movie.ID)
 	for i1, s1 := range seats {
 		for i2, s2 := range movie.Seats {
 			if s1 == s2 {

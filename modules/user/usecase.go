@@ -80,7 +80,7 @@ func (usecase *useCase) BuyTicket(u entities.User, t entities.Ticket) error {
 }
 
 func (usecase *useCase) NotPermitted(m entities.Movie, u entities.User) bool {
-	return m.Age_rating >= u.Age
+	return m.Age_rating > u.Age
 }
 
 func (usecase *useCase) CheckBalance(u entities.User, p int) error {

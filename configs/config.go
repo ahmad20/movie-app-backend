@@ -17,6 +17,7 @@ type Config struct {
 	Cors struct {
 		AllowedOrigins []string
 		AllowedMethods []string
+		AllowedHeaders []string
 	}
 }
 
