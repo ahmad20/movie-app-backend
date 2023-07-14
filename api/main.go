@@ -88,5 +88,5 @@ func main() {
 	userHandler := user.NewHandler(userUseCase, authService)
 	user.SetupRouter(router, userHandler, middleware)
 
-	router.Run(":80")
+	router.Run()
 }
