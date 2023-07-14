@@ -10,6 +10,7 @@ cors:
     - "*"
     - "http://localhost:3000"
     - "http://localhost:4000"
+    - "https://movie-app-react-sand.vercel.app/"
   allowedMethods: [GET, POST, PATCH, DELETE]
   allowedHeaders: 
     - "Authorization"
