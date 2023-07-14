@@ -9,6 +9,7 @@ cors:
   allowedOrigins: 
     - "http://localhost:3000"
     - "http://localhost:4000"
+    - "https://7cc4-114-124-243-93.ngrok-free.app/movies"
   allowedMethods: [GET, POST, PATCH, DELETE]
   allowedHeaders: 
     - "Authorization"
