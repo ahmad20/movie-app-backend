@@ -25,6 +25,7 @@ func main() {
 		fmt.Println("Failed to load time zone:", err)
 		return
 	}
+	gin.SetMode(gin.ReleaseMode)
 	time.Local = location
 	var (
 		movies  []entities.Movie
@@ -88,5 +89,11 @@ func main() {
 	userHandler := user.NewHandler(userUseCase, authService)
 	user.SetupRouter(router, userHandler, middleware)
 
-	router.Run(":80")
+	// Configure SSL/TLS
+	server := &http.Server{
+		Addr:    ":443",
+		Handler: router,
+	}
+
+	log.Fatal(server.ListenAndServeTLS("/root/certificate.crt", "/root/private.key"))
 }
