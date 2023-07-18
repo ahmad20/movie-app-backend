@@ -88,7 +88,7 @@ func main() {
 	userHandler := user.NewHandler(userUseCase, authService)
 	user.SetupRouter(router, userHandler, middleware)
 
-	err = http.ListenAndServeTLS(":443", "../server.crt", "../server.key", router)
+	err = http.ListenAndServeTLS(":443", "server.crt", "server.key", router)
 	if err != nil {
 		panic(err)
 	}
